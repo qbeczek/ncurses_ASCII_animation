@@ -1,0 +1,115 @@
+﻿Student: JAKUB SZYMAŃSKI (E102)
+			jakszyma@gmail.com
+prowadzący: dr hab. inż. Michał Borecki, mgr inż. Maciej Jasiński
+
+
+
+
+
+Podstawy Programowania (PRM) – projekt 
+dokumentacja projektu
+
+
+
+Temat: Animacja w semigrafice ASCII rzutu do kosza koszykarza po krzywej parametrycznej y = (b*sqrt(A*x))+c, z wykorzystaniem biblioteki ncurses.
+
+
+Opis programu
+
+	Program to animacja w semigrafice ASCII, jest to ruch po boisku koszykarza 
+i rzut piłki, która porusza się po krzywej parametrycznej  y = (b*sqrt(A*x))+c. Stworzone są dwa okna, w jednym jest ukazana grafika w drugim wyświetlają się komunikaty.
+
+Algorytm rozwiązania zadania
+
+	Do rozwiązania wykorzystano bibliotekę ncurses. Algorytm grafiki wygląda następująco:
+
+1. Rozpoczęcie pracy programu i ncurses.
+2. Inicjalizacja dwóch okien win1 i win2 oraz wypisanie ich ram.
+3. Wyrysowanie boiska i zawodnika w win1 oraz komunikatu o gotowości win 2.
+4. Drybling zawodnika oraz powrót na pozycje rzutową.
+5. Rzut piłki, ruch po krzywej parametrycznej.
+6. Komunikat o trafieniu i zakończenie pracy.
+
+Struktury danych
+
+	Program wykorzystuje kilka zmiennych, przedstawione są w tabeli poniżej.
+
+
+Podział na pliki
+
+
+1. “boisko.c” + plik nagłówkowy “boisko.h”- plik zawierający funkcje wypisującą boisko.
+2. “ruch.c” + plik nagłówkowy “ruch.c” - plik zawierający funkcje opisujące ruch.
+3. “main.c” - główny plik programu.
+
+
+
+Opis plików
+
+1. “boisko.c”
+
+Zawiera biblioteki: 
+- ncurses.h
+- math.h;
+
+Definiuje stałą A = 9 jako parametr do rówania parametrycznego y = sqrt(A*x);
+
+Składa się z jednej funkcji void boisko(int *, int, int, WINDOW *, WINDOW *), która ma za zadanie wyrysować boisko w win1 i wypisać komunikaty o gotowości 
+w win2. Funkcja wykorzystuje funkcje z biblioteki ncurses mvwprinwt, wypisuje
+w odpowiednim miejscu w oknie znaki.
+
+2.  “ruch.c” 
+
+Zawiera biblioteki: 
+- ncurses.h
+- math.h;
+
+Definiuje stałą A = 9 jako parametr do rówania parametrycznego y = sqrt(A*x);
+
+Składa się z funkcji:
+ *delay(int) 
+		– powoduje ona opóznienie w programie,
+ *void drybling(int *, int, int, int, int, WINDOW *, WINDOW *)
+		- wprawia w ruch ludzika z piłką wzdłuż linii boiska i wypisuje komunikat “drybling” w win2,
+ *void powrot(int *, int, int, int, int, WINDOW *, WINDOW *)
+		- powoduje powrot ludzika z piłką na miejsce oddania rzutu i wypisuje komunikat “powrot” w win2,
+ *void rzut(int *, int, int, int, int, WINDOW *, WINDOW *);
+		- powoduje ruch piłki w kierunku kosza, czyli widzimy oddanie rzutu, po krzywej parametrycznej, wyświetla odpowiedni komunikat w win2,
+ *void punkt(int *, int, int, int, int, WINDOW *, WINDOW *);
+		- wyświetla komunikat o trafieniu zawodnika i odświeża ekrany;
+
+3. “main.c” 
+
+Zawiera biblioteki: 
+- stdio.h,
+- stdlib.h
+- ncurses.h
+- math.h
+
+Oraz pliki nagłówkowe:
+- boisko.h
+- ruch.h
+
+Definiuje stałą A = 9 jako parametr do rówania parametrycznego y = sqrt(A*x);
+ 
+Jest to funkcja główna. Na początku linjka printf(“\e[?25l”); ukrywa kursor aby ten nie przeszkadzał w pokazywaniu grafiki. Startuje ncurses oraz otwiera dwa okna win1 i win2.
+Pobiera odpowiednie parametry z okien i przekazuje do funkcji. Wywołuje funkcje:
+1. boisko
+2. drybling
+3. powrot
+4. rzut
+5. punkt
+
+Kończy program, zamyka okna ncurses i zwraca wartość “1”.
+Sposób testowania i dobieranie parametrów
+	Program był testowany na wielu komputerach i kilku linuxach, zmieniano wartości parametru A, wielkości ludzika i wartości w funkcji delay. Optymalne rozwiązanie zostało znalezione za pomocą metody prób i błędów, wartości parametrów i miejsc wypisania ludzika i kosza są związane z krzywą parametryczną, dzięki temu nie ma problemu z wypisaniem boiska dla różnych wielkości konsol.
+
+Literatura i źródła
+	
+	1. “Język C. Szkoła programowania” Stephen Prata.
+	2. Tutorial yt:
+ https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v
+	3. http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/
+
+
+
